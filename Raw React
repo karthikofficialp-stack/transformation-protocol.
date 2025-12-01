@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Raw React Protocol</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+      body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f0f0f0; }
+      .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; width: 300px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s; }
+      .hired { background-color: #d4edda; border-color: #c3e6cb; }
+      .skill-badge { background: #333; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin-right: 5px; }
+      button { padding: 8px 16px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer; }
+      button:hover { background: #0056b3; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      
+      // 1. Skill Component
+      function Skill({ name }) {
+        return <span className="skill-badge">{name}</span>;
+      }
+
+      // 2. ProfileCard Component
+      function ProfileCard() {
+        const [isHired, setIsHired] = React.useState(false);
+
+        const handleHire = () => {
+          setIsHired(true);
+        };
+
+        return (
+          <div className={`card ${isHired ? "hired" : ""}`}>
+            <h2>Karthi</h2>
+            <p>Frontend Developer • React Enthusiast</p>
+
+            <div style={{ marginBottom: "10px" }}>
+              <Skill name="React" />
+              <Skill name="JavaScript" />
+              <Skill name="Node.js" />
+            </div>
+
+            {!isHired ? (
+              <button onClick={handleHire}>Hire Me</button>
+            ) : (
+              <strong>🎉 Hired!</strong>
+            )}
+          </div>
+        );
+      }
+
+      // 3. Render
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<ProfileCard />);
+      
+    </script>
+  </body>
+</html>
